@@ -1,8 +1,9 @@
 const
     express = require('express'),
     bodyParser = require('body-parser'),
-    app = express().use(bodyParser.json());
-
+    app = express().use(bodyParser.json()),
+    token = 'EAAfFdXuKyV8BADolijnyOaa5IWUYMdyrKp3npkLXvnVorv50Qj8qlrgldZAUhtXnfyfgc5LPXvv8mU7bPHenxdd4v8xNED1drTnJSxxONNhhUhlrrNXsY9cgZBVVlPrRURQ3rA6QBAS2soWyzZC0JVZBPtY7TY8XndEyPnRoxixXBiFAgDcw',
+    request = require('request');
 
 // Creates the endpoint for our webhook 
 app.post('/webhook', (req, res) => {
@@ -15,10 +16,17 @@ app.post('/webhook', (req, res) => {
         // Iterates over each entry - there may be multiple if batched
         body.entry.forEach(function(entry) {
 
-            // Gets the message. entry.messaging is an array, but 
-            // will only ever contain one message, so we get index 0
-            let webhook_event = entry.messaging[0];
-            console.log(webhook_event);
+            body.entry.forEach(function(entry) {
+
+                // Gets the body of the webhook event
+                let webhook_event = entry.messaging[0];
+                console.log(webhook_event);
+
+                // Get the sender PSID
+                let sender_psid = webhook_event.sender.id;
+                console.log('Sender PSID: ' + sender_psid);
+
+            });
         });
 
         // Returns a '200 OK' response to all requests
@@ -59,5 +67,21 @@ app.get('/webhook', (req, res) => {
     }
 });
 
+
+// Maneja los eventos de los mensajes
+function handleMessage(sender_psid, received_message) {
+
+}
+
+
+// Maneja las devoluviones de los mensajes
+function handlePostback(sender_psid, received_postback) {
+
+}
+
+//Envía mensajes de respuesta a través de la API de envío.
+function callSendAPI(sender_psid, response) {
+
+}
 
 module.exports = app;
