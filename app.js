@@ -82,7 +82,7 @@ function handleMessage(sender_psid, received_message) {
     if (received_message.text) {
         // Crea la carga útil para un mensaje de texto básico.
         response = {
-            "text": `You sent the message: "${received_message.text}". Now send me an image!`
+            "text": `que tranza, dijiste: "${received_message.text}"`
         }
     }
 
